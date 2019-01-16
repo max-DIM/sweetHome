@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Asset{% endblock %}
+
+{% block body %}
+    <h1>Asset</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ asset.id }}</td>
+            </tr>
+            <tr>
+                <th>Descript</th>
+                <td>{{ asset.Descript }}</td>
+            </tr>
+            <tr>
+                <th>DailyRate</th>
+                <td>{{ asset.dailyRate }}</td>
+            </tr>
+            <tr>
+                <th>NbPerson</th>
+                <td>{{ asset.nbPerson }}</td>
+            </tr>
+            <tr>
+                <th>Size</th>
+                <td>{{ asset.size }}</td>
+            </tr>
+            <tr>
+                <th>Floor</th>
+                <td>{{ asset.floor }}</td>
+            </tr>
+            <tr>
+                <th>AccomodationType</th>
+                <td>{{ asset.accomodationType }}</td>
+            </tr>
+            <tr>
+                <th>State</th>
+                <td>{{ asset.state }}</td>
+            </tr>
+            <tr>
+                <th>Street</th>
+                <td>{{ asset.street }}</td>
+            </tr>
+            <tr>
+                <th>ZipCode</th>
+                <td>{{ asset.zipCode }}</td>
+            </tr>
+            <tr>
+                <th>Gps</th>
+                <td>{{ asset.gps }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('asset_index') }}">back to list</a>
+
+    <a href="{{ path('asset_edit', {'id': asset.id}) }}">edit</a>
+
+    {{ include('asset/_delete_form.html.twig') }}
+{% endblock %}
