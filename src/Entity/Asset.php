@@ -73,7 +73,7 @@ class Asset
      * @ORM\ManyToOne(targetEntity="App\Entity\Actor", inversedBy="assets")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $actorid;
+    private $actor;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Picture", mappedBy="asset_id", orphanRemoval=true)
@@ -98,7 +98,7 @@ class Asset
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Reservation", mappedBy="assetId", orphanRemoval=true)
      */
-    private $reservationId;
+    private $reservations;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Equipment", inversedBy="assets")
@@ -107,8 +107,7 @@ class Asset
 
     public function __construct()
     {
-        $this->equipmentId = new ArrayCollection();
-        $this->reservationId = new ArrayCollection();
+        $this->reservations = new ArrayCollection();
         $this->pictures = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->equipment = new ArrayCollection();
@@ -239,14 +238,14 @@ class Asset
         return $this;
     }
 
-    public function getActorid(): ?Actor
+    public function getActor(): ?Actor
     {
-        return $this->actorid;
+        return $this->actor;
     }
 
-    public function setActorid(?Actor $actorid): self
+    public function setActor(?Actor $actor): self
     {
-        $this->actorid = $actorid;
+        $this->actor = $actor;
 
         return $this;
     }
@@ -263,7 +262,7 @@ class Asset
     {
         if (!$this->pictures->contains($picture)) {
             $this->pictures[] = $picture;
-            $picture->setAssetid($this);
+            $picture->setAsset($this);
         }
 
         return $this;
@@ -274,8 +273,8 @@ class Asset
         if ($this->pictures->contains($picture)) {
             $this->pictures->removeElement($picture);
             // set the owning side to null (unless already changed)
-            if ($picture->getAssetid() === $this) {
-                $picture->setAssetid(null);
+            if ($picture->getAsset() === $this) {
+                $picture->setAsset(null);
             }
         }
 
@@ -292,8 +291,8 @@ class Asset
         $this->conditionAsset = $conditionAsset;
 
         // set the owning side of the relation if necessary
-        if ($this !== $conditionAsset->getAssetid()) {
-            $conditionAsset->setAssetid($this);
+        if ($this !== $conditionAsset->getAsset()) {
+            $conditionAsset->setAsset($this);
         }
 
         return $this;
@@ -309,8 +308,8 @@ class Asset
         $this->availibilityCalendar = $availibilityCalendar;
 
         // set the owning side of the relation if necessary
-        if ($this !== $availibilityCalendar->getAssetid()) {
-            $availibilityCalendar->setAssetid($this);
+        if ($this !== $availibilityCalendar->getAsset()) {
+            $availibilityCalendar->setAsset($this);
         }
 
         return $this;
@@ -328,7 +327,7 @@ class Asset
     {
         if (!$this->comments->contains($comment)) {
             $this->comments[] = $comment;
-            $comment->setAssetid($this);
+            $comment->setAsset($this);
         }
 
         return $this;
@@ -339,8 +338,8 @@ class Asset
         if ($this->comments->contains($comment)) {
             $this->comments->removeElement($comment);
             // set the owning side to null (unless already changed)
-            if ($comment->getAssetid() === $this) {
-                $comment->setAssetid(null);
+            if ($comment->getAsset() === $this) {
+                $comment->setAsset(null);
             }
         }
 
@@ -350,28 +349,28 @@ class Asset
     /**
      * @return Collection|Reservation[]
      */
-    public function getReservationId(): Collection
+    public function getReservations(): Collection
     {
-        return $this->reservationId;
+        return $this->reservations;
     }
 
-    public function addReservationId(Reservation $reservationId): self
+    public function addReservation(Reservation $reservation): self
     {
-        if (!$this->reservationId->contains($reservationId)) {
-            $this->reservationId[] = $reservationId;
-            $reservationId->setAssetId($this);
+        if (!$this->reservations->contains($reservation)) {
+            $this->reservations[] = $reservation;
+            $reservation->setAsset($this);
         }
 
         return $this;
     }
 
-    public function removeReservationId(Reservation $reservationId): self
+    public function removeReservation(Reservation $reservation): self
     {
-        if ($this->reservationId->contains($reservationId)) {
-            $this->reservationId->removeElement($reservationId);
+        if ($this->reservations->contains($reservation)) {
+            $this->reservations->removeElement($reservation);
             // set the owning side to null (unless already changed)
-            if ($reservationId->getAssetId() === $this) {
-                $reservationId->setAssetId(null);
+            if ($reservation->getAsset() === $this) {
+                $reservation->setAsset(null);
             }
         }
 

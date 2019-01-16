@@ -42,16 +42,16 @@ class Reservation
      * @ORM\ManyToOne(targetEntity="App\Entity\Asset", inversedBy="reservationId")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $assetId;
+    private $asset;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Actor", inversedBy="reservations")
      */
-    private $actorId;
+    private $actor;
 
     public function __construct()
     {
-        $this->actorId = new ArrayCollection();
+        $this->actor = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -107,14 +107,14 @@ class Reservation
         return $this;
     }
 
-    public function getAssetId(): ?Asset
+    public function getAsset(): ?Asset
     {
-        return $this->assetId;
+        return $this->asset;
     }
 
-    public function setAssetId(?Asset $assetId): self
+    public function setAsset(?Asset $asset): self
     {
-        $this->assetId = $assetId;
+        $this->asset = $asset;
 
         return $this;
     }
@@ -122,24 +122,24 @@ class Reservation
     /**
      * @return Collection|Actor[]
      */
-    public function getActorId(): Collection
+    public function getActor(): Collection
     {
-        return $this->actorId;
+        return $this->actor;
     }
 
-    public function addActorId(Actor $actorId): self
+    public function addActor(Actor $actor): self
     {
-        if (!$this->actorId->contains($actorId)) {
-            $this->actorId[] = $actorId;
+        if (!$this->actor->contains($actor)) {
+            $this->actor[] = $actor;
         }
 
         return $this;
     }
 
-    public function removeActorId(Actor $actorId): self
+    public function removeActor(Actor $actor): self
     {
-        if ($this->actorId->contains($actorId)) {
-            $this->actorId->removeElement($actorId);
+        if ($this->actor->contains($actor)) {
+            $this->actor->removeElement($actor);
         }
 
         return $this;

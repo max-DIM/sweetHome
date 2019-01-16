@@ -30,7 +30,7 @@ class AvailibilityCalendar
      * @ORM\OneToOne(targetEntity="App\Entity\Asset", inversedBy="availibilityCalendar", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
-    private $assetid;
+    private $asset;
 
     public function getId(): ?int
     {
@@ -61,14 +61,14 @@ class AvailibilityCalendar
         return $this;
     }
 
-    public function getAssetid(): ?Asset
+    public function getAsset(): ?Asset
     {
-        return $this->assetid;
+        return $this->asset;
     }
 
-    public function setAssetid(Asset $assetid): self
+    public function setAsset(Asset $asset): self
     {
-        $this->assetid = $assetid;
+        $this->asset = $asset;
 
         return $this;
     }

@@ -30,13 +30,13 @@ class Comment
      * @ORM\ManyToOne(targetEntity="App\Entity\Asset", inversedBy="comments")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $assetid;
+    private $asset;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Actor", inversedBy="comments")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $actorid;
+    private $actor;
 
     public function getId(): ?int
     {
@@ -67,26 +67,26 @@ class Comment
         return $this;
     }
 
-    public function getAssetid(): ?Asset
+    public function getAsset(): ?Asset
     {
-        return $this->assetid;
+        return $this->asset;
     }
 
-    public function setAssetid(?Asset $assetid): self
+    public function setAsset(?Asset $asset): self
     {
-        $this->assetid = $assetid;
+        $this->asset = $asset;
 
         return $this;
     }
 
-    public function getActorid(): ?Actor
+    public function getActor(): ?Actor
     {
-        return $this->actorid;
+        return $this->actor;
     }
 
-    public function setActorid(?Actor $actorid): self
+    public function setActor(?Actor $actor): self
     {
-        $this->actorid = $actorid;
+        $this->actor = $actor;
 
         return $this;
     }

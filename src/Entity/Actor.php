@@ -212,7 +212,7 @@ class Actor
     {
         if (!$this->assets->contains($asset)) {
             $this->assets[] = $asset;
-            $asset->setActorid($this);
+            $asset->setActor($this);
         }
 
         return $this;
@@ -223,8 +223,8 @@ class Actor
         if ($this->assets->contains($asset)) {
             $this->assets->removeElement($asset);
             // set the owning side to null (unless already changed)
-            if ($asset->getActorid() === $this) {
-                $asset->setActorid(null);
+            if ($asset->getActor() === $this) {
+                $asset->setActor(null);
             }
         }
 
@@ -243,7 +243,7 @@ class Actor
     {
         if (!$this->reservations->contains($reservation)) {
             $this->reservations[] = $reservation;
-            $reservation->addActorId($this);
+            $reservation->addActor($this);
         }
 
         return $this;
@@ -253,7 +253,7 @@ class Actor
     {
         if ($this->reservations->contains($reservation)) {
             $this->reservations->removeElement($reservation);
-            $reservation->removeActorId($this);
+            $reservation->removeActor($this);
         }
 
         return $this;
@@ -271,7 +271,7 @@ class Actor
     {
         if (!$this->comments->contains($comment)) {
             $this->comments[] = $comment;
-            $comment->setActorid($this);
+            $comment->setActor($this);
         }
 
         return $this;
@@ -282,8 +282,8 @@ class Actor
         if ($this->comments->contains($comment)) {
             $this->comments->removeElement($comment);
             // set the owning side to null (unless already changed)
-            if ($comment->getActorid() === $this) {
-                $comment->setActorid(null);
+            if ($comment->getActor() === $this) {
+                $comment->setActor(null);
             }
         }
 

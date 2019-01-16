@@ -45,7 +45,7 @@ class Condition
      * @ORM\OneToOne(targetEntity="App\Entity\Asset", inversedBy="conditionAsset", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
-    private $assetid;
+    private $asset;
 
     public function getId(): ?int
     {
@@ -112,14 +112,14 @@ class Condition
         return $this;
     }
 
-    public function getAssetid(): ?Asset
+    public function getAsset(): ?Asset
     {
-        return $this->assetid;
+        return $this->asset;
     }
 
-    public function setAssetid(Asset $assetid): self
+    public function setAsset(Asset $asset): self
     {
-        $this->assetid = $assetid;
+        $this->asset = $asset;
 
         return $this;
     }
