@@ -41,11 +41,7 @@ class Condition
      */
     private $hasParking;
 
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Asset", inversedBy="conditionAsset", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $asset;
+
 
     public function getId(): ?int
     {

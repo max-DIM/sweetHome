@@ -81,12 +81,12 @@ class Asset
     private $pictures;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Condition", mappedBy="asset", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Condition", cascade={"persist", "remove"})
      */
     private $conditionAsset;
 
     /**
-     * @ORM\OneToOne(targetEntity="AvailabilityCalendar", mappedBy="asset", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="AvailabilityCalendar", cascade={"persist", "remove"})
      */
     private $availabilityCalendar;
 
@@ -290,10 +290,7 @@ class Asset
     {
         $this->conditionAsset = $conditionAsset;
 
-        // set the owning side of the relation if necessary
-        if ($this !== $conditionAsset->getAsset()) {
-            $conditionAsset->setAsset($this);
-        }
+        $this->conditionAsset->setAsset($this);
 
         return $this;
     }
@@ -307,10 +304,10 @@ class Asset
     {
         $this->availabilityCalendar = $availabilityCalendar;
 
-        // set the owning side of the relation if necessary
-        if ($this !== $availabilityCalendar->getAsset()) {
-            $availabilityCalendar->setAsset($this);
-        }
+//        // set the owning side of the relation if necessary
+//        if ($this !== $availabilityCalendar->getAsset()) {
+//            $availabilityCalendar->setAsset($this);
+//        }
 
         return $this;
     }
