@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Actor;
 use App\Entity\Asset;
 use App\Form\AssetType;
 use App\Repository\AssetRepository;
@@ -9,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Zend\Code\Annotation\AnnotationCollection;
 
 /**
  * @Route("/asset")
@@ -42,9 +44,12 @@ class AssetController extends AbstractController
             return $this->redirectToRoute('asset_index');
         }
 
+        $user = new Actor();
+        $user->setFirstName("seb");
         return $this->render('asset/new.html.twig', [
             'asset' => $asset,
             'form' => $form->createView(),
+            'user' => $user
         ]);
     }
 
@@ -85,7 +90,7 @@ class AssetController extends AbstractController
      */
     public function delete(Request $request, Asset $asset): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$asset->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $asset->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($asset);
             $entityManager->flush();
