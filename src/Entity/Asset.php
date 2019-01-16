@@ -83,9 +83,15 @@ class Asset
      */
     private $availibilityCalendar;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="assetid", orphanRemoval=true)
+     */
+    private $comments;
+
     public function __construct()
     {
         $this->pictures = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -273,6 +279,37 @@ class Asset
         // set the owning side of the relation if necessary
         if ($this !== $availibilityCalendar->getAssetid()) {
             $availibilityCalendar->setAssetid($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setAssetid($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->contains($comment)) {
+            $this->comments->removeElement($comment);
+            // set the owning side to null (unless already changed)
+            if ($comment->getAssetid() === $this) {
+                $comment->setAssetid(null);
+            }
         }
 
         return $this;
