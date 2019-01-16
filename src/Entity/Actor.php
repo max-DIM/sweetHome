@@ -69,9 +69,15 @@ class Actor
      */
     private $assets;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Reservation", mappedBy="actorId")
+     */
+    private $reservations;
+
     public function __construct()
     {
         $this->assets = new ArrayCollection();
+        $this->reservations = new ArrayCollection();
         $this->comments = new ArrayCollection();
 
     }
@@ -220,6 +226,34 @@ class Actor
             if ($asset->getActorid() === $this) {
                 $asset->setActorid(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Reservation[]
+     */
+    public function getReservations(): Collection
+    {
+        return $this->reservations;
+    }
+
+    public function addReservation(Reservation $reservation): self
+    {
+        if (!$this->reservations->contains($reservation)) {
+            $this->reservations[] = $reservation;
+            $reservation->addActorId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReservation(Reservation $reservation): self
+    {
+        if ($this->reservations->contains($reservation)) {
+            $this->reservations->removeElement($reservation);
+            $reservation->removeActorId($this);
         }
 
         return $this;

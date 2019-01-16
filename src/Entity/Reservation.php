@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -41,6 +43,16 @@ class Reservation
      * @ORM\JoinColumn(nullable=false)
      */
     private $assetId;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Actor", inversedBy="reservations")
+     */
+    private $actorId;
+
+    public function __construct()
+    {
+        $this->actorId = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -103,6 +115,32 @@ class Reservation
     public function setAssetId(?Asset $assetId): self
     {
         $this->assetId = $assetId;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Actor[]
+     */
+    public function getActorId(): Collection
+    {
+        return $this->actorId;
+    }
+
+    public function addActorId(Actor $actorId): self
+    {
+        if (!$this->actorId->contains($actorId)) {
+            $this->actorId[] = $actorId;
+        }
+
+        return $this;
+    }
+
+    public function removeActorId(Actor $actorId): self
+    {
+        if ($this->actorId->contains($actorId)) {
+            $this->actorId->removeElement($actorId);
+        }
 
         return $this;
     }
