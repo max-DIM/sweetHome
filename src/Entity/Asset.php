@@ -70,7 +70,7 @@ class Asset
     private $gps;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Actor", inversedBy="assets")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Actor", inversedBy="assets", fetch="EAGER")
      * @ORM\JoinColumn(nullable=false)
      */
     private $actor;

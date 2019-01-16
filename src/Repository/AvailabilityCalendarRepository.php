@@ -12,7 +12,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * @method AvailabilityCalendar[]    findAll()
  * @method AvailabilityCalendar[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class AvailibilityCalendarRepository extends ServiceEntityRepository
+class AvailabilityCalendarRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
