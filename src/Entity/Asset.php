@@ -95,8 +95,15 @@ class Asset
      */
     private $comments;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Reservation", mappedBy="assetId", orphanRemoval=true)
+     */
+    private $reservationId;
+
     public function __construct()
     {
+        $this->equipmentId = new ArrayCollection();
+        $this->reservationId = new ArrayCollection();
         $this->pictures = new ArrayCollection();
         $this->comments = new ArrayCollection();
     }
@@ -328,6 +335,37 @@ class Asset
             // set the owning side to null (unless already changed)
             if ($comment->getAssetid() === $this) {
                 $comment->setAssetid(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Reservation[]
+     */
+    public function getReservationId(): Collection
+    {
+        return $this->reservationId;
+    }
+
+    public function addReservationId(Reservation $reservationId): self
+    {
+        if (!$this->reservationId->contains($reservationId)) {
+            $this->reservationId[] = $reservationId;
+            $reservationId->setAssetId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReservationId(Reservation $reservationId): self
+    {
+        if ($this->reservationId->contains($reservationId)) {
+            $this->reservationId->removeElement($reservationId);
+            // set the owning side to null (unless already changed)
+            if ($reservationId->getAssetId() === $this) {
+                $reservationId->setAssetId(null);
             }
         }
 

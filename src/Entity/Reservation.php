@@ -36,6 +36,12 @@ class Reservation
      */
     private $status;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Asset", inversedBy="reservationId")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $assetId;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -85,6 +91,18 @@ class Reservation
     public function setStatus(string $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getAssetId(): ?Asset
+    {
+        return $this->assetId;
+    }
+
+    public function setAssetId(?Asset $assetId): self
+    {
+        $this->assetId = $assetId;
 
         return $this;
     }
