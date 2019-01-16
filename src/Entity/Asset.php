@@ -76,41 +76,41 @@ class Asset
     private $actor;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Picture", mappedBy="asset_id", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Picture", mappedBy="asset", orphanRemoval=true)
      */
     private $pictures;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Condition", mappedBy="assetid", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Condition", mappedBy="asset", cascade={"persist", "remove"})
      */
     private $conditionAsset;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\AvailibilityCalendar", mappedBy="assetid", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="AvailabilityCalendar", mappedBy="asset", cascade={"persist", "remove"})
      */
-    private $availibilityCalendar;
+    private $availabilityCalendar;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="assetid", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="asset", orphanRemoval=true)
      */
     private $comments;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Reservation", mappedBy="assetId", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Reservation", mappedBy="asset", orphanRemoval=true)
      */
     private $reservations;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Equipment", inversedBy="assets")
      */
-    private $equipment;
+    private $equipments;
 
     public function __construct()
     {
         $this->reservations = new ArrayCollection();
         $this->pictures = new ArrayCollection();
         $this->comments = new ArrayCollection();
-        $this->equipment = new ArrayCollection();
+        $this->equipments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -298,18 +298,18 @@ class Asset
         return $this;
     }
 
-    public function getAvailibilityCalendar(): ?AvailibilityCalendar
+    public function getAvailabilityCalendar(): ?AvailabilityCalendar
     {
-        return $this->availibilityCalendar;
+        return $this->availabilityCalendar;
     }
 
-    public function setAvailibilityCalendar(AvailibilityCalendar $availibilityCalendar): self
+    public function setAvailabilityCalendar(AvailabilityCalendar $availabilityCalendar): self
     {
-        $this->availibilityCalendar = $availibilityCalendar;
+        $this->availabilityCalendar = $availabilityCalendar;
 
         // set the owning side of the relation if necessary
-        if ($this !== $availibilityCalendar->getAsset()) {
-            $availibilityCalendar->setAsset($this);
+        if ($this !== $availabilityCalendar->getAsset()) {
+            $availabilityCalendar->setAsset($this);
         }
 
         return $this;
@@ -380,15 +380,15 @@ class Asset
     /**
      * @return Collection|Equipment[]
      */
-    public function getEquipment(): Collection
+    public function getEquipments(): Collection
     {
-        return $this->equipment;
+        return $this->equipments;
     }
 
     public function addEquipment(Equipment $equipment): self
     {
-        if (!$this->equipment->contains($equipment)) {
-            $this->equipment[] = $equipment;
+        if (!$this->equipments->contains($equipment)) {
+            $this->equipments[] = $equipment;
         }
 
         return $this;
@@ -396,8 +396,8 @@ class Asset
 
     public function removeEquipment(Equipment $equipment): self
     {
-        if ($this->equipment->contains($equipment)) {
-            $this->equipment->removeElement($equipment);
+        if ($this->equipments->contains($equipment)) {
+            $this->equipments->removeElement($equipment);
         }
 
         return $this;

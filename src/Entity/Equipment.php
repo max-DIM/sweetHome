@@ -34,7 +34,7 @@ class Equipment
     private $equipmentCategory;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Asset", mappedBy="equipment")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Asset", mappedBy="equipments")
      */
     private $assets;
 

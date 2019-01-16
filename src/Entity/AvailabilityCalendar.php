@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AvailibilityCalendarRepository")
  */
-class AvailibilityCalendar
+class AvailabilityCalendar
 {
     /**
      * @ORM\Id()
@@ -27,7 +27,7 @@ class AvailibilityCalendar
     private $status;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Asset", inversedBy="availibilityCalendar", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Asset", inversedBy="availabilityCalendar", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $asset;

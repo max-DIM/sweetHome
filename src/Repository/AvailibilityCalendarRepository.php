@@ -2,21 +2,21 @@
 
 namespace App\Repository;
 
-use App\Entity\AvailibilityCalendar;
+use App\Entity\AvailabilityCalendar;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
- * @method AvailibilityCalendar|null find($id, $lockMode = null, $lockVersion = null)
- * @method AvailibilityCalendar|null findOneBy(array $criteria, array $orderBy = null)
- * @method AvailibilityCalendar[]    findAll()
- * @method AvailibilityCalendar[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method AvailabilityCalendar|null find($id, $lockMode = null, $lockVersion = null)
+ * @method AvailabilityCalendar|null findOneBy(array $criteria, array $orderBy = null)
+ * @method AvailabilityCalendar[]    findAll()
+ * @method AvailabilityCalendar[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class AvailibilityCalendarRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, AvailibilityCalendar::class);
+        parent::__construct($registry, AvailabilityCalendar::class);
     }
 
     // /**
