@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Asset
 {
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -67,6 +68,12 @@ class Asset
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $gps;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Actor", inversedBy="assets")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $actorid;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Picture", mappedBy="asset_id", orphanRemoval=true)
@@ -215,6 +222,18 @@ class Asset
     public function setGps(?string $gps): self
     {
         $this->gps = $gps;
+
+        return $this;
+    }
+
+    public function getActorid(): ?Actor
+    {
+        return $this->actorid;
+    }
+
+    public function setActorid(?Actor $actorid): self
+    {
+        $this->actorid = $actorid;
 
         return $this;
     }

@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Actor
 {
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -64,14 +65,21 @@ class Actor
     private $responseDelay;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="actorid", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Asset", mappedBy="actorid", orphanRemoval=true)
      */
-    private $comments;
+    private $assets;
 
     public function __construct()
     {
+        $this->assets = new ArrayCollection();
         $this->comments = new ArrayCollection();
+
     }
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="actorid", orphanRemoval=true)
+     */
+    private $comments;
 
     public function getId(): ?int
     {
@@ -182,6 +190,37 @@ class Actor
     public function setResponseDelay(?string $responseDelay): self
     {
         $this->responseDelay = $responseDelay;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Asset[]
+     */
+    public function getAssets(): Collection
+    {
+        return $this->assets;
+    }
+
+    public function addAsset(Asset $asset): self
+    {
+        if (!$this->assets->contains($asset)) {
+            $this->assets[] = $asset;
+            $asset->setActorid($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAsset(Asset $asset): self
+    {
+        if ($this->assets->contains($asset)) {
+            $this->assets->removeElement($asset);
+            // set the owning side to null (unless already changed)
+            if ($asset->getActorid() === $this) {
+                $asset->setActorid(null);
+            }
+        }
 
         return $this;
     }
