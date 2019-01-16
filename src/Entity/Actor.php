@@ -54,7 +54,7 @@ class Actor
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $reponseRate;
+    private $responseRate;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -150,14 +150,14 @@ class Actor
         return $this;
     }
 
-    public function getReponseRate(): ?int
+    public function getResponseRate(): ?int
     {
-        return $this->reponseRate;
+        return $this->responseRate;
     }
 
-    public function setReponseRate(?int $reponseRate): self
+    public function setResponseRate(?int $responseRate): self
     {
-        $this->reponseRate = $reponseRate;
+        $this->responseRate = $responseRate;
 
         return $this;
     }
