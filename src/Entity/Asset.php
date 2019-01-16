@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -65,6 +67,21 @@ class Asset
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $gps;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Picture", mappedBy="asset_id", orphanRemoval=true)
+     */
+    private $pictures;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Condition", mappedBy="assetid", cascade={"persist", "remove"})
+     */
+    private $conditionAsset;
+
+    public function __construct()
+    {
+        $this->pictures = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -187,6 +204,54 @@ class Asset
     public function setGps(?string $gps): self
     {
         $this->gps = $gps;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Picture[]
+     */
+    public function getPictures(): Collection
+    {
+        return $this->pictures;
+    }
+
+    public function addPicture(Picture $picture): self
+    {
+        if (!$this->pictures->contains($picture)) {
+            $this->pictures[] = $picture;
+            $picture->setAssetid($this);
+        }
+
+        return $this;
+    }
+
+    public function removePicture(Picture $picture): self
+    {
+        if ($this->pictures->contains($picture)) {
+            $this->pictures->removeElement($picture);
+            // set the owning side to null (unless already changed)
+            if ($picture->getAssetid() === $this) {
+                $picture->setAssetid(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getConditionAsset(): ?Condition
+    {
+        return $this->conditionAsset;
+    }
+
+    public function setConditionAsset(Condition $conditionAsset): self
+    {
+        $this->conditionAsset = $conditionAsset;
+
+        // set the owning side of the relation if necessary
+        if ($this !== $conditionAsset->getAssetid()) {
+            $conditionAsset->setAssetid($this);
+        }
 
         return $this;
     }

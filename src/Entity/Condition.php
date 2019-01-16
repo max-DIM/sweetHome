@@ -41,6 +41,12 @@ class Condition
      */
     private $hasParking;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Asset", inversedBy="conditionAsset", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $assetid;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -102,6 +108,18 @@ class Condition
     public function setHasParking(?bool $hasParking): self
     {
         $this->hasParking = $hasParking;
+
+        return $this;
+    }
+
+    public function getAssetid(): ?Asset
+    {
+        return $this->assetid;
+    }
+
+    public function setAssetid(Asset $assetid): self
+    {
+        $this->assetid = $assetid;
 
         return $this;
     }

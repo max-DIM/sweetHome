@@ -21,6 +21,12 @@ class Picture
      */
     private $picture;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Asset", inversedBy="pictures")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $assetid;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -34,6 +40,18 @@ class Picture
     public function setPicture($picture): self
     {
         $this->picture = $picture;
+
+        return $this;
+    }
+
+    public function getAssetid(): ?Asset
+    {
+        return $this->assetid;
+    }
+
+    public function setAssetid(?Asset $assetid): self
+    {
+        $this->assetid = $assetid;
 
         return $this;
     }
