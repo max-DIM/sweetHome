@@ -78,6 +78,11 @@ class Asset
      */
     private $conditionAsset;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\AvailibilityCalendar", mappedBy="assetid", cascade={"persist", "remove"})
+     */
+    private $availibilityCalendar;
+
     public function __construct()
     {
         $this->pictures = new ArrayCollection();
@@ -251,6 +256,23 @@ class Asset
         // set the owning side of the relation if necessary
         if ($this !== $conditionAsset->getAssetid()) {
             $conditionAsset->setAssetid($this);
+        }
+
+        return $this;
+    }
+
+    public function getAvailibilityCalendar(): ?AvailibilityCalendar
+    {
+        return $this->availibilityCalendar;
+    }
+
+    public function setAvailibilityCalendar(AvailibilityCalendar $availibilityCalendar): self
+    {
+        $this->availibilityCalendar = $availibilityCalendar;
+
+        // set the owning side of the relation if necessary
+        if ($this !== $availibilityCalendar->getAssetid()) {
+            $availibilityCalendar->setAssetid($this);
         }
 
         return $this;
