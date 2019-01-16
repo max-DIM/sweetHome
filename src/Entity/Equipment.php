@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -30,6 +32,16 @@ class Equipment
      * @ORM\Column(type="string", length=100)
      */
     private $equipmentCategory;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Asset", mappedBy="equipment")
+     */
+    private $assets;
+
+    public function __construct()
+    {
+        $this->assets = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -68,6 +80,34 @@ class Equipment
     public function setEquipmentCategory(string $equipmentCategory): self
     {
         $this->equipmentCategory = $equipmentCategory;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Asset[]
+     */
+    public function getAssets(): Collection
+    {
+        return $this->assets;
+    }
+
+    public function addAsset(Asset $asset): self
+    {
+        if (!$this->assets->contains($asset)) {
+            $this->assets[] = $asset;
+            $asset->addEquipment($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAsset(Asset $asset): self
+    {
+        if ($this->assets->contains($asset)) {
+            $this->assets->removeElement($asset);
+            $asset->removeEquipment($this);
+        }
 
         return $this;
     }

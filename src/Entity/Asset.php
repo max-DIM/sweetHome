@@ -100,12 +100,18 @@ class Asset
      */
     private $reservationId;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Equipment", inversedBy="assets")
+     */
+    private $equipment;
+
     public function __construct()
     {
         $this->equipmentId = new ArrayCollection();
         $this->reservationId = new ArrayCollection();
         $this->pictures = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->equipment = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -367,6 +373,32 @@ class Asset
             if ($reservationId->getAssetId() === $this) {
                 $reservationId->setAssetId(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Equipment[]
+     */
+    public function getEquipment(): Collection
+    {
+        return $this->equipment;
+    }
+
+    public function addEquipment(Equipment $equipment): self
+    {
+        if (!$this->equipment->contains($equipment)) {
+            $this->equipment[] = $equipment;
+        }
+
+        return $this;
+    }
+
+    public function removeEquipment(Equipment $equipment): self
+    {
+        if ($this->equipment->contains($equipment)) {
+            $this->equipment->removeElement($equipment);
         }
 
         return $this;
