@@ -32,7 +32,19 @@ class AssetController extends AbstractController
      */
     public function new(Request $request): Response
     {
+        $user = new Actor();
+        $user->setFirstName("steph");
+        $user->setLastName("steph");
+        $user->setemail("steph");
+        $user->setLogin("steph");
+        $user->setPassword("steph");
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($user);
+        $entityManager->flush();
+
+
         $asset = new Asset();
+        $asset -> setActor($user);
         $form = $this->createForm(AssetType::class, $asset);
         $form->handleRequest($request);
 
@@ -44,8 +56,9 @@ class AssetController extends AbstractController
             return $this->redirectToRoute('asset_index');
         }
 
-        $user = new Actor();
-        $user->setFirstName("seb");
+
+
+
         return $this->render('asset/new.html.twig', [
             'asset' => $asset,
             'form' => $form->createView(),

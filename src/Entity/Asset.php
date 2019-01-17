@@ -81,7 +81,7 @@ class Asset
     private $pictures;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Condition", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Condition", mappedBy="asset", cascade={"persist", "remove"})
      */
     private $conditionAsset;
 
