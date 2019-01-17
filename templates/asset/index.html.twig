@@ -3,7 +3,15 @@
 {% block title %}Asset index{% endblock %}
 
 {% block body %}
-    <h1>Asset index</h1>
+
+    <div class="jumbotron">
+        <div class="container">
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+
+            {{ form_end(form) }}
+        </div>
+    </div>
 
     <table class="table">
         <thead>
