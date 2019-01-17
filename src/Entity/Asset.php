@@ -80,10 +80,6 @@ class Asset
      */
     private $pictures;
 
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Condition", mappedBy="asset", cascade={"persist", "remove"})
-     */
-    private $conditionAsset;
 
     /**
      * @ORM\OneToOne(targetEntity="AvailabilityCalendar", cascade={"persist", "remove"})
@@ -287,7 +283,7 @@ class Asset
         return $this;
     }
 
-    public function getConditionAsset(): ?Condition
+    /*public function getConditionAsset(): ?Condition
     {
         return $this->conditionAsset;
     }
@@ -299,7 +295,7 @@ class Asset
         $this->conditionAsset->setAsset($this);
 
         return $this;
-    }
+    }*/
 
     public function getAvailabilityCalendar(): ?AvailabilityCalendar
     {
