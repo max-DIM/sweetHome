@@ -105,12 +105,18 @@ class Asset
      */
     private $equipments;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\AvailabilityCalendar", mappedBy="asset", orphanRemoval=true)
+     */
+    private $availabilityCalendars;
+
     public function __construct()
     {
         $this->reservations = new ArrayCollection();
         $this->pictures = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->equipments = new ArrayCollection();
+        $this->availabilityCalendars = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -395,6 +401,37 @@ class Asset
     {
         if ($this->equipments->contains($equipment)) {
             $this->equipments->removeElement($equipment);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|AvailabilityCalendar[]
+     */
+    public function getAvailabilityCalendars(): Collection
+    {
+        return $this->availabilityCalendars;
+    }
+
+    public function addAvailabilityCalendar(AvailabilityCalendar $availabilityCalendar): self
+    {
+        if (!$this->availabilityCalendars->contains($availabilityCalendar)) {
+            $this->availabilityCalendars[] = $availabilityCalendar;
+            $availabilityCalendar->setAsset($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAvailabilityCalendar(AvailabilityCalendar $availabilityCalendar): self
+    {
+        if ($this->availabilityCalendars->contains($availabilityCalendar)) {
+            $this->availabilityCalendars->removeElement($availabilityCalendar);
+            // set the owning side to null (unless already changed)
+            if ($availabilityCalendar->getAsset() === $this) {
+                $availabilityCalendar->setAsset(null);
+            }
         }
 
         return $this;

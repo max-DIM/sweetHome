@@ -26,6 +26,12 @@ class AvailabilityCalendar
      */
     private $status;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Asset", inversedBy="availabilityCalendars")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $asset;
+
 
     public function getId(): ?int
     {
@@ -52,6 +58,18 @@ class AvailabilityCalendar
     public function setStatus(string $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getAsset(): ?Asset
+    {
+        return $this->asset;
+    }
+
+    public function setAsset(?Asset $asset): self
+    {
+        $this->asset = $asset;
 
         return $this;
     }
