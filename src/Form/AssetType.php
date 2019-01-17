@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Asset;
+use phpDocumentor\Reflection\Types\Object_;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -22,7 +23,8 @@ class AssetType extends AbstractType
             ->add('street')
             ->add('zipCode')
             ->add('gps')
-//            ->add('actor')
+//            ->add('actor',Object_::ActorType)
+ //           ->add('actor')
 //            ->add('conditionAsset')
             ->add('availabilityCalendar')
             ->add('equipments')
