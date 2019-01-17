@@ -23,7 +23,7 @@ class AssetType extends AbstractType
             ->add('street')
             ->add('zipCode')
             ->add('gps')
-//            ->add('actor',Object_::ActorType)
+            ->add('actor',ActorType::class)
  //           ->add('actor')
 //            ->add('conditionAsset')
             ->add('availabilityCalendar')

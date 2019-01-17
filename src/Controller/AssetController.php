@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Actor;
 use App\Entity\Asset;
 use App\Form\AssetType;
+use App\Repository\ActorRepository;
 use App\Repository\AssetRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,9 +31,14 @@ class AssetController extends AbstractController
     /**
      * @Route("/new", name="asset_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, ActorRepository $actorRepository): Response
     {
-        $user = new Actor();
+
+    //TODO Remplacer cette ligne de script par le user connecté
+        $user = $actorRepository->find(1);
+
+
+        /*$user = new Actor();
         $user->setFirstName("steph");
         $user->setLastName("steph");
         $user->setemail("steph");
@@ -40,11 +46,13 @@ class AssetController extends AbstractController
         $user->setPassword("steph");
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($user);
-        $entityManager->flush();
+        $entityManager->flush();*/
 
 
         $asset = new Asset();
-        $asset -> setActor($user);
+
+        $asset->setActor($user);
+
         $form = $this->createForm(AssetType::class, $asset);
         $form->handleRequest($request);
 
@@ -56,7 +64,7 @@ class AssetController extends AbstractController
             return $this->redirectToRoute('asset_index');
         }
 
-
+        //$user = $asset->getActor();
 
 
         return $this->render('asset/new.html.twig', [
@@ -64,6 +72,7 @@ class AssetController extends AbstractController
             'form' => $form->createView(),
             'user' => $user
         ]);
+
     }
 
     /**

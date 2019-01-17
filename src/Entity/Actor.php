@@ -65,12 +65,12 @@ class Actor
     private $responseDelay;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Asset", mappedBy="actorid", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Asset", mappedBy="actor", orphanRemoval=true , fetch="EAGER")
      */
     private $assets;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Reservation", mappedBy="actorId")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Reservation", mappedBy="actor")
      */
     private $reservations;
 
@@ -83,7 +83,7 @@ class Actor
     }
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="actorid", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="actor", orphanRemoval=true)
      */
     private $comments;
 
