@@ -402,10 +402,7 @@ class Asset
         return $this;
     }
 
-    /**
-     * @return Collection|AvailabilityCalendar[]
-     */
-    public function getAvailabilityCalendars(): Collection
+    /*public function getAvailabilityCalendars(): Collection
     {
         return $this->availabilityCalendars;
     }
@@ -431,5 +428,5 @@ class Asset
         }
 
         return $this;
-    }
+    }*/
 }

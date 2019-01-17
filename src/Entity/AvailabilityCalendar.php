@@ -26,13 +26,6 @@ class AvailabilityCalendar
      */
     private $status;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Asset", inversedBy="availabilityCalendars")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $asset;
-
-
     public function getId(): ?int
     {
         return $this->id;
