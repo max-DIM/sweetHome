@@ -29,6 +29,7 @@ class APIController extends AbstractController
             $array[] = [
                 "descr" => $asset->getDescript(),
                 "state" => $asset->getState(),
+                "size" => $asset->getSize(),
             ];
         }
 
