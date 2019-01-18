@@ -11,7 +11,7 @@ Les utilisateurs peuvent mettre des biens en ligne. D’autres utilisateurs peuv
 
 ### Diagramme de classe
 
-![alt text](https://raw.githubusercontent.com/max-DIM/sweetHome/img/sweethome.png)
+![alt text](https://github.com/max-DIM/sweetHome/blob/develop/img/sweethome.png)
 
 
 ### Nos hypothèses sont les suivantes
@@ -46,17 +46,17 @@ Dans le menu deux actions sont disponibles :
    - “Louer”, permets d’avoir accès à la liste de tous les logements présents dans la base de données
    - “Gérer les biens”, permets d’alimenter la base de données des logements.
 
-![alt text](https://raw.githubusercontent.com/max-DIM/sweetHome/img/1.png)
+![alt text](https://github.com/max-DIM/sweetHome/tree/develop/img/1.png)
 
 Le premier bouton permet d’aller sur cette page :
 
-![alt text](https://raw.githubusercontent.com/max-DIM/sweetHome/img/2.png)
+![alt text](https://github.com/max-DIM/sweetHome/tree/develop/img/2.png)
 
 (visualisation des biens immobiliers enregistrés dans la base de données)
 
 le second bouton permet d’aller sur cette page :
 
-![alt text](https://raw.githubusercontent.com/max-DIM/sweetHome/img/3.png)
+![alt text](https://github.com/max-DIM/sweetHome/tree/develop/img/3.png)
 
 (visualisation du formulaire permettant de créer un nouveau bien)
 
