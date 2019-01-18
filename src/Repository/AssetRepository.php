@@ -3,7 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Asset;
+use App\Entity\AssetFilter;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -17,6 +19,25 @@ class AssetRepository extends ServiceEntityRepository
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Asset::class);
+    }
+
+
+    public function findAllVisibleQuery(AssetFilter $search): Query
+    {
+       $query = $this->findAllVisibleQuery();
+
+
+
+        if ($search->getNbPerson())
+        {
+            $query = $query
+                ->createQueryBuilder('a')
+                ->where('a.nb_person = :nb_person')
+                ->setParamerter('nb_person', $search->getNbPerson());
+        }
+
+        return $query->getQuery();
+
     }
 
     // /**

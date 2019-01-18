@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Actor;
 use App\Entity\Asset;
+use App\Entity\AssetFilter;
 use App\Entity\AssetSearch;
+use App\Form\AssetFilterType;
 use App\Form\AssetSearchType;
 use App\Form\AssetType;
 use App\Repository\ActorRepository;
@@ -25,12 +27,13 @@ class AssetController extends AbstractController
      */
     public function index(AssetRepository $assetRepository, Request $request): Response
     {
-        $search = new AssetSearch();
-        $form = $this->createForm(AssetSearchType::class, $search);
+        $search = new AssetFilter();
+        $form = $this->createForm(AssetFilterType::class, $search);
         $form->handleRequest($request);
 
         return $this->render('asset/index.html.twig', [
             'assets' => $assetRepository->findAll(),
+            /*'assets' => $assetRepository->findAllVisibleQuery($search),*/
             'form' => $form->createView()
         ]);
     }
