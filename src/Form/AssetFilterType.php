@@ -26,6 +26,20 @@ class AssetFilterType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Type de logement'
                 ]
+            ])
+            ->add('floor', IntegerType::class, [
+                'required' => false,
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'Nombre d\'étage'
+                ]
+            ])
+            ->add('size', IntegerType::class, [
+                'required' => false,
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'Surface'
+                ]
             ]);
     }
 
