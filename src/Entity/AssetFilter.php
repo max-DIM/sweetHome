@@ -14,6 +14,52 @@ class AssetFilter {
     /**
      * @var int|null
      */
+    private $size;
+
+    /**
+     * @var int|null
+     */
+    private $floor;
+
+    /**
+     * @return int|null
+     */
+    public function getSize(): ?int
+    {
+        return $this->size;
+    }
+
+    /**
+     * @param int|null $size
+     * @return AssetFilter
+     */
+    public function setSize(?int $size): AssetFilter
+    {
+        $this->size = $size;
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getFloor(): ?int
+    {
+        return $this->floor;
+    }
+
+    /**
+     * @param int|null $floor
+     * @return AssetFilter
+     */
+    public function setFloor(?int $floor): AssetFilter
+    {
+        $this->floor = $floor;
+        return $this;
+    }
+
+    /**
+     * @var int|null
+     */
     private $accomodationTypeSearch;
 
     /**
