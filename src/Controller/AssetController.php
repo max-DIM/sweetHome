@@ -33,6 +33,7 @@ class AssetController extends AbstractController
 
         return $this->render('asset/index.html.twig', [
             'assets' => $assetRepository->findAll(),
+            /*'assets' => $assetRepository->findAllVisibleQuery($search),*/
             'form' => $form->createView()
         ]);
     }
