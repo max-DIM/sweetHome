@@ -16,20 +16,20 @@ Les utilisateurs peuvent mettre des biens en ligne. D’autres utilisateurs peuv
 
 ### Nos hypothèses sont les suivantes
 
-L’objet Actor représente les utilisateurs qui ont créé un compte sur le site, que ce soit un locataire ou un propriétaire.
-Un propriétaire ou un locataire sera défini par son rôle, mis en place par le module sécurité de Symfony (FosUserBundle). Il faudra prévoir une fonctionnalité qui permet de transformer un simple locataire en propriétaire (entraîne la modification du rôle)
+L’objet **Actor** représente les utilisateurs qui ont créé un compte sur le site, que ce soit un locataire ou un propriétaire.
+Un **propriétaire** ou un **locataire** sera défini par son rôle, mis en place par le module sécurité de Symfony (FosUserBundle). Il faudra prévoir une fonctionnalité qui permet de transformer un simple locataire en propriétaire (entraîne la modification du rôle)
 
-L’objet Asset crée les différents logements, le type d’appartement sera distingué grâce à l’attribut AccomodationType.
+L’objet **Asset** crée les différents logements, le type d’appartement sera distingué grâce à l’attribut **AccomodationType**.
 
-Nous considérons qu’une proposition est une réservation dont le statut est ‘en-cours’. Une fois la proposition validée par le propriétaire, la réservation changera de statut en Accepté.
+Nous considérons qu’une **proposition** est une **réservation** dont le statut est ‘en-cours’. Une fois la proposition validée par le propriétaire, la réservation changera de statut en Accepté.
 
-Concernant la gestion de la disponibilité du bien, l’entité AvailabilityCalendar contient les dates réservables pour chaque bien. Si la date n’est pas réservable, elle n’est pas enregitrée dans la table. Les dates réservables portent un statut qui indiquera la disponibilité de la date, par exemple Disponible ou Réservé, si la date n’est plus disponible. 
+Concernant la gestion de la **disponibilité** du bien, l’entité AvailabilityCalendar contient les dates réservables pour chaque bien. Si la date n’est pas réservable, elle n’est pas enregitrée dans la table. Les dates réservables portent un statut qui indiquera la disponibilité de la date, par exemple Disponible ou Réservé, si la date n’est plus disponible. 
 Côté vue utilisateur, il faudra appliquer ces informations sur un calendrier de façon à ce que les dates non reservables soient en gris, les dates réservables disponibles en vert, les dates réservables non disponible en rouge.
 
-L’entité “Conditions” comprend les informations diverses sur l’appartement :  mode de paiement, heure d’arrivée/départ….
+L’entité “**Conditions**” comprend les informations diverses sur l’appartement :  mode de paiement, heure d’arrivée/départ….
 
 
-Les équipements sont regroupés par catégorie  (équipement de la catégorie “cuisine”, équipement de la catégorie “salle de bains”...) Un bien (Asset) contient plusieurs équipements.
+Les **équipements** sont regroupés par catégorie  (équipement de la catégorie “cuisine”, équipement de la catégorie “salle de bains”...) Un bien (Asset) contient plusieurs équipements.
 
 ### Point d’amélioration 
 
@@ -60,7 +60,7 @@ le second bouton permet d’aller sur cette page :
 
 (visualisation du formulaire permettant de créer un nouveau bien)
 
-##Reste à faire
+## Reste à faire
 
 Pour finaliser le projet sweetHome, il faudrait inclure :
 la gestion des rôles (admin, propriétaire et utilisateurs)
