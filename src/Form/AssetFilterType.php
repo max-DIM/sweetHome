@@ -13,7 +13,7 @@ class AssetFilterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nbPersonSearch', IntegerType::class, [
+            ->add('nb_person', IntegerType::class, [
                 'required' => false,
                 'label' => false,
                 'attr' => [
@@ -26,9 +26,7 @@ class AssetFilterType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Type de logement'
                 ]
-            ])
-            ->add('save', SubmitType::class);
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

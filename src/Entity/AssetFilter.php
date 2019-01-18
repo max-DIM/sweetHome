@@ -12,6 +12,29 @@ class AssetFilter {
     private $nb_person;
 
     /**
+     * @var int|null
+     */
+    private $accomodationTypeSearch;
+
+    /**
+     * @return int|null
+     */
+    public function getAccomodationTypeSearch(): ?int
+    {
+        return $this->accomodationTypeSearch;
+    }
+
+    /**
+     * @param int|null $accomodationTypeSearch
+     * @return AssetFilter
+     */
+    public function setAccomodationTypeSearch(?int $accomodationTypeSearch): AssetFilter
+    {
+        $this->accomodationTypeSearch = $accomodationTypeSearch;
+        return $this;
+    }
+
+    /**
      * @return int|null
      */
     public function getNbPerson(): ?int
