@@ -1,0 +1,9 @@
+body > nav {
+    background: #e74c3c;
+}
+#navbarSupportedContent{
+    margin: 0 50px;
+}
+body > div.jumbotron.text-center {
+    height:100vh;
+}

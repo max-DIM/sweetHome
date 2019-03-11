@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Asset index{% endblock %}
+
+{% block body %}
+
+    <div class="jumbotron">
+        <div class="container">
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Descript</th>
+                <th>DailyRate</th>
+                <th>NbPerson</th>
+                <th>Size</th>
+                <th>Floor</th>
+                <th>AccomodationType</th>
+                <th>State</th>
+                <th>Street</th>
+                <th>ZipCode</th>
+                <th>Gps</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for asset in assets %}
+            <tr>
+                <td>{{ asset.id }}</td>
+                <td>{{ asset.Descript }}</td>
+                <td>{{ asset.dailyRate }}</td>
+                <td>{{ asset.nbPerson }}</td>
+                <td>{{ asset.size }}</td>
+                <td>{{ asset.floor }}</td>
+                <td>{{ asset.accomodationType }}</td>
+                <td>{{ asset.state }}</td>
+                <td>{{ asset.street }}</td>
+                <td>{{ asset.zipCode }}</td>
+                <td>{{ asset.gps }}</td>
+                <td>
+                    <a href="{{ path('asset_show', {'id': asset.id}) }}">show</a>
+                    <a href="{{ path('asset_edit', {'id': asset.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="12">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('asset_new') }}">Create new</a>
+{% endblock %}

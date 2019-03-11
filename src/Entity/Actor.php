@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -9,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Actor
 {
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -54,12 +57,35 @@ class Actor
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $reponseRate;
+    private $responseRate;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $responseDelay;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Asset", mappedBy="actor", orphanRemoval=true , fetch="EAGER")
+     */
+    private $assets;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Reservation", mappedBy="actor")
+     */
+    private $reservations;
+
+    public function __construct()
+    {
+        $this->assets = new ArrayCollection();
+        $this->reservations = new ArrayCollection();
+        $this->comments = new ArrayCollection();
+
+    }
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="actor", orphanRemoval=true)
+     */
+    private $comments;
 
     public function getId(): ?int
     {
@@ -150,14 +176,14 @@ class Actor
         return $this;
     }
 
-    public function getReponseRate(): ?int
+    public function getResponseRate(): ?int
     {
-        return $this->reponseRate;
+        return $this->responseRate;
     }
 
-    public function setReponseRate(?int $reponseRate): self
+    public function setResponseRate(?int $responseRate): self
     {
-        $this->reponseRate = $reponseRate;
+        $this->responseRate = $responseRate;
 
         return $this;
     }
@@ -170,6 +196,96 @@ class Actor
     public function setResponseDelay(?string $responseDelay): self
     {
         $this->responseDelay = $responseDelay;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Asset[]
+     */
+    public function getAssets(): Collection
+    {
+        return $this->assets;
+    }
+
+    public function addAsset(Asset $asset): self
+    {
+        if (!$this->assets->contains($asset)) {
+            $this->assets[] = $asset;
+            $asset->setActor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAsset(Asset $asset): self
+    {
+        if ($this->assets->contains($asset)) {
+            $this->assets->removeElement($asset);
+            // set the owning side to null (unless already changed)
+            if ($asset->getActor() === $this) {
+                $asset->setActor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Reservation[]
+     */
+    public function getReservations(): Collection
+    {
+        return $this->reservations;
+    }
+
+    public function addReservation(Reservation $reservation): self
+    {
+        if (!$this->reservations->contains($reservation)) {
+            $this->reservations[] = $reservation;
+            $reservation->addActor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReservation(Reservation $reservation): self
+    {
+        if ($this->reservations->contains($reservation)) {
+            $this->reservations->removeElement($reservation);
+            $reservation->removeActor($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setActor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->contains($comment)) {
+            $this->comments->removeElement($comment);
+            // set the owning side to null (unless already changed)
+            if ($comment->getActor() === $this) {
+                $comment->setActor(null);
+            }
+        }
 
         return $this;
     }

@@ -41,6 +41,8 @@ class Condition
      */
     private $hasParking;
 
+    private $asset;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -102,6 +104,18 @@ class Condition
     public function setHasParking(?bool $hasParking): self
     {
         $this->hasParking = $hasParking;
+
+        return $this;
+    }
+
+    public function getAsset(): ?Asset
+    {
+        return $this->asset;
+    }
+
+    public function setAsset(Asset $asset): self
+    {
+        $this->asset = $asset;
 
         return $this;
     }

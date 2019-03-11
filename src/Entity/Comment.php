@@ -26,6 +26,18 @@ class Comment
      */
     private $rating;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Asset", inversedBy="comments")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $asset;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Actor", inversedBy="comments")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $actor;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -51,6 +63,30 @@ class Comment
     public function setRating(int $rating): self
     {
         $this->rating = $rating;
+
+        return $this;
+    }
+
+    public function getAsset(): ?Asset
+    {
+        return $this->asset;
+    }
+
+    public function setAsset(?Asset $asset): self
+    {
+        $this->asset = $asset;
+
+        return $this;
+    }
+
+    public function getActor(): ?Actor
+    {
+        return $this->actor;
+    }
+
+    public function setActor(?Actor $actor): self
+    {
+        $this->actor = $actor;
 
         return $this;
     }
