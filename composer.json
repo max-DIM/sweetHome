@@ -33,9 +33,7 @@
         "symfony/maker-bundle": "^1.11",
         "symfony/profiler-pack": "*",
         "symfony/test-pack": "*",
-        "symfony/web-server-bundle": "4.2.*",
-        "neo4j/neo4j-bundle": "^0.4.0",
-        "graphaware/neo4j-php-ogm": "@rc"
+        "symfony/web-server-bundle": "4.2.*"
     },
     "config": {
         "preferred-install": {

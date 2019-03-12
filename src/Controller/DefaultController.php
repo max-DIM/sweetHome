@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Equipment;
-use App\Entity\Nodevisitor;
+use App\Entity\NodeVisitor;
 use GraphAware\Neo4j\OGM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,13 +20,12 @@ class DefaultController extends AbstractController
         $equipment->setName("douche");
 
         $visitorId = $this->get("session")->get("visitorId");
-
-        $visitor = $emg->getRepository(Nodevisitor::class)->findOneBy(["name" => $visitorId]);
+        $visitor = $emg->getRepository(NodeVisitor::class)->findOneBy(["name" => $visitorId]);
 
         if (!$visitor){
-            $visitor = new Nodevisitor($visitorId,0);
-            $emg.persist($visitor);
-            $emg.flush();
+            $visitor = new NodeVisitor($visitorId,0);
+            $emg->persist($visitor);
+            $emg->flush();
         }
 
 

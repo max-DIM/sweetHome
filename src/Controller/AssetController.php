@@ -1,19 +1,21 @@
 <?php
-
 namespace App\Controller;
 
-use App\Entity\Actor;
 use App\Entity\Asset;
 use App\Entity\AssetSearch;
+use App\Entity\NodeConsulte;
+use App\Entity\NodeProperty;
 use App\Form\AssetSearchType;
 use App\Form\AssetType;
 use App\Repository\ActorRepository;
 use App\Repository\AssetRepository;
+use GraphAware\Neo4j\OGM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Zend\Code\Annotation\AnnotationCollection;
+use App\Entity\NodeVisitor;
+use Psr\Log\LoggerInterface;
 
 /**
  * @Route("/asset")
@@ -28,23 +30,18 @@ class AssetController extends AbstractController
         $search = new AssetSearch();
         $form = $this->createForm(AssetSearchType::class, $search);
         $form->handleRequest($request);
-
         return $this->render('asset/index.html.twig', [
             'assets' => $assetRepository->findAll(),
             'form' => $form->createView()
         ]);
     }
-
     /**
      * @Route("/new", name="asset_new", methods={"GET","POST"})
      */
-    public function new(Request $request, ActorRepository $actorRepository): Response
+    public function new(Request $request, ActorRepository $actorRepository,EntityManagerInterface $emg): Response
     {
-
-    //TODO Remplacer cette ligne de script par le user connecté
+        //TODO Remplacer cette ligne de script par le user connecté
         $user = $actorRepository->find(1);
-
-
         /*$user = new Actor();
         $user->setFirstName("steph");
         $user->setLastName("steph");
@@ -55,33 +52,49 @@ class AssetController extends AbstractController
         $entityManager->persist($user);
         $entityManager->flush();*/
 
-
         $asset = new Asset();
-
         $asset->setActor($user);
-
         $form = $this->createForm(AssetType::class, $asset);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($asset);
             $entityManager->flush();
 
+
+            $property = new NodeProperty($asset->getDescript());
+            //$emg->flush();
+
+            $visitorId = $this->get("session")->get("visitorId");
+            //$visitor = $emg->getRepository(NodeVisitor::class)->findOneBy(["name" => $visitorId]);
+            $visitor = $emg->getRepository(NodeVisitor::class)->findOneBy(["name" => $visitorId]);
+            //dd($visitor);
+            //dump($visitor);
+            //$visitor = new NodeVisitor($visitorId,0);
+
+            $consulte  = new NodeConsulte($visitor,$property);
+            $visitor->addConsultation($consulte);
+            //$visitor->addConsultation();
+            $property->addConsultation($consulte);
+            $emg->persist($property);
+            $emg->persist($visitor);
+
+            $emg->persist($consulte);
+            $emg->flush();
+
+
+
             return $this->redirectToRoute('asset_index');
         }
 
+
         //$user = $asset->getActor();
-
-
         return $this->render('asset/new.html.twig', [
             'asset' => $asset,
             'form' => $form->createView(),
             'user' => $user
         ]);
-
     }
-
     /**
      * @Route("/{id}", name="asset_show", methods={"GET"})
      */
@@ -91,7 +104,6 @@ class AssetController extends AbstractController
             'asset' => $asset,
         ]);
     }
-
     /**
      * @Route("/{id}/edit", name="asset_edit", methods={"GET","POST"})
      */
@@ -99,21 +111,17 @@ class AssetController extends AbstractController
     {
         $form = $this->createForm(AssetType::class, $asset);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-
             return $this->redirectToRoute('asset_index', [
                 'id' => $asset->getId(),
             ]);
         }
-
         return $this->render('asset/edit.html.twig', [
             'asset' => $asset,
             'form' => $form->createView(),
         ]);
     }
-
     /**
      * @Route("/{id}", name="asset_delete", methods={"DELETE"})
      */
@@ -124,7 +132,6 @@ class AssetController extends AbstractController
             $entityManager->remove($asset);
             $entityManager->flush();
         }
-
         return $this->redirectToRoute('asset_index');
     }
 }
